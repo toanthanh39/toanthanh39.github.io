@@ -57,7 +57,8 @@
     background-color: rgb(0,0,0,0.8) ;
     width: 400px;
     border-radius: 5px;
-   margin-top: 20px;
+   margin-top: 10px;
+   margin-bottom: 0;
     
     
 
@@ -137,14 +138,14 @@
 
 
 }
-.main-slide{
-   width: 60%;
-    height: 100%;
+.nav{
+   width: 100%;
+    height: auto;
+   margin: 5px;
    
-    justify-content: center;
    
 }
-.main-slide ul#main-ul{
+.nav ul#main-ul{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -154,19 +155,98 @@
    
 
 }
-.main-slide ul#main-ul li{
+.nav ul#main-ul li{
     
     list-style: none;
     
 }
-.main-slide ul#main-ul li a button{
+.nav ul#main-ul li a button{
     min-width: 50px;
     box-shadow: rgb(255,255,255,.4);
     cursor: pointer;
    
     
 }
-@media only screen and (max-width:986px) {
+.main-block{
+    position: fixed;
+    
+}
+.main-body{
+    width: 100%;
+    height: 1000px;
+    display: flex;
+    flex-direction: row;
+}
+.content{
+    width: 60%;
+    height: auto;
+    background-color: #1b1b1b;
+    padding: 5px;
+    align-items: center;
+    
+}
+.content-slide{
+    width: 90%;
+    align-items: center;
+    transition:ease-in-out 0.3;
+}
+.content-slide img {
+   height:500px;
+   width: 90%;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   left: 100px;
+   
+ }
+ .toggle{
+     width: 40%;
+     height: 100%;
+    }
+ .item {
+     
+    background-color: black;
+     width: 100%;
+     display:flex;
+   
+   
+     height:100%;
+    
+   
+
+ }
+ .thumb{
+     display: block;
+     width: 100px;
+     height: 100px;
+     margin: 10px;
+    
+     
+ }
+
+ .thumb img{
+    height: 100px;
+    max-width: 100px;
+    display: flex;
+    cursor: pointer;
+    
+   
+    
+     
+ }
+
+ footer{
+     height: 200px;
+     background-color: #1b1b1b;
+ }
+ .active{
+    border: 1px solid red;
+    transform:translateY(20px)
+ }
+ 
+
+
+@media only screen and (max-width:986px) and (min-width:369px){
     .body{
         width: 100%;
         background-size: 400pt;
@@ -177,15 +257,35 @@
         
     
     .header{
-       display: inline-block;
+       display:block;
         width: 100%;
+       
+       
+        height: auto;
+        align-items: center;
 
     }
+    .logo{
+        display: none;
+       
+       
+    }
     .menu{
-        display: block;
+        
         transition: 0.3s ease-in;
         justify-content: centers;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+        align-items: center;
+       justify-content: center;
 
+    }
+    .menu.ul{
+        display: flex;
+        flex-direction: column;
+        position:absolute;
+        top:10px;
     }
 
     
