@@ -64,7 +64,7 @@ jQuery(document).ready(function($){
         
        
   
-         if(min_width<=1200){
+         if(min_width<=1280){
           $('.overflow-ticket').off();
        
        }else{
