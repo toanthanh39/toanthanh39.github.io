@@ -1,0 +1,10 @@
+2022-05-21T14:51:37+00:00 CRITICAL Maximum execution time of 120 seconds exceeded in D:\xampp\htdocs\Asian_demo\wp-includes\blocks.php on line 234
+
+2022-05-21T16:40:49+00:00 CRITICAL Uncaught Error: Call to a member function the_title() on array in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\promotion.php:63
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\promotion.php on line 63
+

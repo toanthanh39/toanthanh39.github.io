@@ -1,0 +1,118 @@
+2022-05-19T06:33:09+00:00 CRITICAL Uncaught Error: Call to a member function add_to_cart_url() on bool in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\functions.php:14
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-settings.php(555): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-config.php(96): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\wp-load.php(50): require_once('D:\\xampp\\htdocs...')
+#3 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(13): require_once('D:\\xampp\\htdocs...')
+#4 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#5 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\functions.php on line 14
+
+2022-05-19T06:39:23+00:00 CRITICAL Uncaught Error: Call to a member function add_to_cart_url() on bool in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\functions.php:14
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-settings.php(555): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-config.php(96): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\wp-load.php(50): require_once('D:\\xampp\\htdocs...')
+#3 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(13): require_once('D:\\xampp\\htdocs...')
+#4 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#5 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\functions.php on line 14
+
+2022-05-19T06:39:30+00:00 CRITICAL Uncaught Error: Call to a member function add_to_cart_url() on bool in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\functions.php:14
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-settings.php(555): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-config.php(96): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\wp-load.php(50): require_once('D:\\xampp\\htdocs...')
+#3 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(13): require_once('D:\\xampp\\htdocs...')
+#4 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#5 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\functions.php on line 14
+
+2022-05-19T08:21:10+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:95
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 95
+
+2022-05-19T08:21:32+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:95
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 95
+
+2022-05-19T08:22:18+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:95
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 95
+
+2022-05-19T08:35:10+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:111
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 111
+
+2022-05-19T08:37:26+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:111
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 111
+
+2022-05-19T08:40:14+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:116
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 116
+
+2022-05-19T08:40:24+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:116
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 116
+
+2022-05-19T08:41:58+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:115
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 115
+
+2022-05-19T08:43:02+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:116
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 116
+
+2022-05-19T08:43:36+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:116
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 116
+
+2022-05-19T08:45:02+00:00 CRITICAL Uncaught Error: Object of class WP_Error could not be converted to string in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php:116
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-includes\template-loader.php(106): include()
+#1 D:\xampp\htdocs\Asian_demo\wp-blog-header.php(19): require_once('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\index.php(17): require('D:\\xampp\\htdocs...')
+#3 {main}
+  thrown in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\template\Asia.php on line 116
+

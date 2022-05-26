@@ -1,0 +1,22 @@
+2022-05-18T06:16:33+00:00 CRITICAL syntax error, unexpected 'thiệu' (T_STRING), expecting ';' in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\functions.php on line 10
+
+2022-05-18T08:20:57+00:00 CRITICAL Uncaught ArgumentCountError: Too few arguments to function remove_action(), 0 passed in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\woocommerce\content-single-product.php on line 47 and at least 2 expected in D:\xampp\htdocs\Asian_demo\wp-includes\plugin.php:569
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\woocommerce\content-single-product.php(47): remove_action()
+#1 D:\xampp\htdocs\Asian_demo\wp-includes\template.php(772): require('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\wp-content\plugins\woocommerce\includes\wc-core-functions.php(284): load_template('D:\\xampp\\htdocs...', false)
+#3 D:\xampp\htdocs\Asian_demo\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(598): wc_get_template_part('content', 'single-product')
+#4 D:\xampp\htdocs\Asian_demo\wp-includes\shortcodes.php(356): WC_Shortcodes::product_page(Array, '', 'product_page')
+#5 [internal function]: do_shortcode_tag(Array)
+#6 D:\xampp\htdocs\Asian_demo\wp-includes\shortcodes.php(228): preg_replace in D:\xampp\htdocs\Asian_demo\wp-includes\plugin.php on line 569
+
+2022-05-18T08:21:33+00:00 CRITICAL Uncaught ArgumentCountError: Too few arguments to function remove_action(), 0 passed in D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\woocommerce\content-single-product.php on line 47 and at least 2 expected in D:\xampp\htdocs\Asian_demo\wp-includes\plugin.php:569
+Stack trace:
+#0 D:\xampp\htdocs\Asian_demo\wp-content\themes\asian\woocommerce\content-single-product.php(47): remove_action()
+#1 D:\xampp\htdocs\Asian_demo\wp-includes\template.php(772): require('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\Asian_demo\wp-content\plugins\woocommerce\includes\wc-core-functions.php(284): load_template('D:\\xampp\\htdocs...', false)
+#3 D:\xampp\htdocs\Asian_demo\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(598): wc_get_template_part('content', 'single-product')
+#4 D:\xampp\htdocs\Asian_demo\wp-includes\shortcodes.php(356): WC_Shortcodes::product_page(Array, '', 'product_page')
+#5 [internal function]: do_shortcode_tag(Array)
+#6 D:\xampp\htdocs\Asian_demo\wp-includes\shortcodes.php(228): preg_replace in D:\xampp\htdocs\Asian_demo\wp-includes\plugin.php on line 569
+
