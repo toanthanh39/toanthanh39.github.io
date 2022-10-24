@@ -1,24 +1,15 @@
 import "./App.css";
-import React, { Suspense, lazy } from "react";
-
-import { GlobalProvider } from "./Context/GlobalState";
-import { Routes } from "react-router-dom";
-import { Route } from "react-router-dom";
-
+import React from "react";
 import "./index.scss";
-import { AuthProvider } from "./Context/Auth-context";
-import Home from "./Components/layout/Home";
+import AnimatedRoutes from "./AnimatedRoutes";
+import BackToTop from "./Components/SmallTarget/BackToTop";
 
-// const FireBaseApp = lazy(() => import("./Firebase/FirebaseApp"));
 function App() {
   return (
-    <div>
-      <AuthProvider>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-        </Routes>
-      </AuthProvider>
-    </div>
+    <main>
+      <AnimatedRoutes></AnimatedRoutes>
+      <BackToTop></BackToTop>
+    </main>
   );
 }
 

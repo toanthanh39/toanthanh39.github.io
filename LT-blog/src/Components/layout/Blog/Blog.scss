@@ -1,0 +1,52 @@
+.active .menu {
+  transform: translate(0, 0) !important ;
+}
+.active #direction svg {
+  transform: rotate(-180deg);
+}
+.active ~ #banner {
+  background-size: 120% auto !important;
+}
+.active li {
+  opacity: 1;
+  animation: effect 1s ease-in-out 1 forwards;
+  :nth-last-child(2) {
+    animation-delay: 0.2s !important;
+  }
+  :nth-last-child(3) {
+    animation-delay: 0.4s !important;
+  }
+  :nth-last-child(4) {
+    animation-delay: 0.4s !important;
+  }
+  :nth-last-child(n + 5) {
+    animation-delay: 0.6s !important;
+  }
+}
+li#feature {
+  width: 40%;
+}
+li#newest {
+  width: 40%;
+}
+li#other {
+  width: 10%;
+  ul {
+    float: right;
+    li {
+      svg {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+@keyframes effect {
+  from {
+    opacity: 0;
+    transform: translate(100px, -5px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
