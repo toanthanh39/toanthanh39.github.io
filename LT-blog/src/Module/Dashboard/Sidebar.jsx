@@ -1,7 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
-
+import { signOut } from "firebase/auth";
+import { auth } from "../../Firebase/Firebase-config";
 const SidebarsLink = [
   {
     id: 1,
@@ -25,7 +26,7 @@ const SidebarsLink = [
     ),
   },
   {
-    id: 1,
+    id: 2,
     to: "/post",
     title: "Posts",
     icon: (
@@ -46,7 +47,7 @@ const SidebarsLink = [
     ),
   },
   {
-    id: 1,
+    id: 3,
     to: "/category",
     title: "Category",
     icon: (
@@ -67,7 +68,7 @@ const SidebarsLink = [
     ),
   },
   {
-    id: 1,
+    id: 4,
     to: "/user",
     title: "User",
     icon: (
@@ -88,8 +89,9 @@ const SidebarsLink = [
     ),
   },
   {
-    id: 1,
-    to: "/asd",
+    id: 5,
+    onClick: () => signOut(auth),
+
     title: "logout",
     icon: (
       <svg
@@ -115,10 +117,17 @@ const Container = styled.div`
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   width: 20vw;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
   @media screen and (max-width: 768px) {
     width: 0;
     position: absolute;
     z-index: 100;
+    display: flex;
+    align-items: center;
+    display: none;
   }
   .title {
     display: flex;
@@ -132,11 +141,15 @@ const Container = styled.div`
     padding: 1rem;
     h3 {
       color: ${(props) => props.theme.special};
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 10240px) {
         display: none;
       }
     }
     img {
+      transition: all 0.5s;
+      :hover {
+        transform: scale(1.1);
+      }
       @media screen and (max-width: 768px) {
         display: none;
       }
@@ -159,38 +172,73 @@ const Container = styled.div`
       background-color: ${(props) => props.theme.special};
       color: white;
     }
-    :hover {
-      background-color: ${(props) => props.theme.special};
-      color: white;
+    :not(:first-child) {
+      :hover {
+        background-color: ${(props) => props.theme.special};
+        color: white;
+      }
     }
-    @media screen and (max-width: 567px) {
+    @media screen and (max-width: 820px) {
       justify-content: center;
     }
     .title_link {
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 820px) {
         display: none;
       }
     }
   }
+  .menu_item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    text-align: left;
+    gap: 1rem;
+    transition: all 0.2s;
+    letter-spacing: 2pt;
+    line-height: 10pt;
+    padding-left: 2rem;
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+    :hover {
+      background-color: ${(props) => props.theme.special};
+      color: white;
+    }
+  }
 `;
 const Sidebar = () => {
+  // const navigate = Navigate();
   return (
     <Container>
       <div className="title">
-        <img src="/image/monkey 1.png" alt="" />
+        <Link to="/">
+          <img src="/image/monkey 1.png" alt="" />
+        </Link>
         <h3>LT DASHBOARD</h3>
       </div>
 
-      {SidebarsLink.map((link) => (
-        <NavLink
-          key={link.id}
-          to={link.to}
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
-          <span>{link.icon}</span>
-          <span className="title_link">{link.title}</span>
-        </NavLink>
-      ))}
+      {SidebarsLink.map((link) => {
+        if (link.onClick) {
+          return (
+            <div key={link.id} className="menu_item" onClick={link.onClick}>
+              <span>{link.icon}</span>
+              <span className="title_link">{link.title}</span>
+            </div>
+          );
+        } else {
+          return (
+            <NavLink
+              key={link.id}
+              to={link.to}
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              <span>{link.icon}</span>
+              <span className="title_link">{link.title}</span>
+            </NavLink>
+          );
+        }
+      })}
     </Container>
   );
 };

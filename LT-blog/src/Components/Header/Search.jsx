@@ -123,7 +123,6 @@ const Profile = styled.div`
       border-left: 7px solid transparent;
       border-bottom: 7px solid transparent;
       top: 0;
-
       transform: rotate(-45deg) translateY(-50%);
       /* transform: rotate(-45deg) translate(2px, -50%); */
 
@@ -176,9 +175,15 @@ const Search = () => {
             <BiUserCircle className="w-full h-full text-white"></BiUserCircle>
             {show && (
               <ul>
-                <li>{getFirstName(userInfor.displayName)}</li>
+                <li>{getFirstName(userInfor?.displayName)}</li>
                 <li>Profile</li>
                 <li>Setting</li>
+                {userInfor && (
+                  <li>
+                    <Link to="/dashboard"> Dashboard</Link>
+                  </li>
+                )}
+                <li></li>
                 <li onClick={handleSignOut}>
                   <BiLogOut></BiLogOut>
                   <p>Logout</p>

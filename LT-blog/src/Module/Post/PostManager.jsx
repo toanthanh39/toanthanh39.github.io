@@ -6,6 +6,9 @@ const Container = styled.div`
   width: 100%;
   height: auto;
   position: relative;
+  h1 {
+    color: ${(props) => props.theme.heading};
+  }
   .post_body {
     position: relative;
     width: 100%;
@@ -247,5 +250,4 @@ const PostManager = () => {
     </Container>
   );
 };
-
 export default PostManager;

@@ -41,21 +41,20 @@ const CardOuter = styled.div`
   h4 {
     padding: 0.2rem;
     border-radius: 0.5rem;
-    position: absolute;
-    bottom: 0.2rem;
-    right: 0.5rem;
+    /* position: relative; */
+    margin-left: auto;
   }
 `;
-const CardGlobal = ({ data, h = "100%", w = "310px" }) => {
+const CardGlobal = ({ data, h = "100%", w = "auto" }) => {
   let { title, imageUrl, cat, id, author } = data;
 
   return (
     <Link to={`/${id}`}>
       <CardOuter width={w} height={h}>
         <span>{cat}</span>
-        <h4 className="gradient">{author}</h4>
         <img src={imageUrl} alt="" />
         <p>{title}</p>
+        <h4 className="gradient">{author}</h4>
       </CardOuter>
     </Link>
   );

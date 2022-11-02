@@ -13,11 +13,11 @@ const Button = styled.button`
   :hover {
     background: ${(props) => props.theme.bgSecondary};
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 325px) {
     width: 100%;
   }
 `;
-const ButtonCustom = ({ children, className, type = "text", ...props }) => {
+const ButtonCustom = ({ children, className, type = "button", ...props }) => {
   return (
     <Button type={type} {...props} className={`${className}`}>
       {children}
@@ -25,7 +25,7 @@ const ButtonCustom = ({ children, className, type = "text", ...props }) => {
   );
 };
 ButtonCustom.propTypes = {
-  type: PropTypes.string.isRequired,
+  // type: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
 export default ButtonCustom;

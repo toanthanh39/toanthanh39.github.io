@@ -19,12 +19,20 @@ const ListMenu = [
     title: "Contact",
   },
 ];
+const Nav = styled.nav`
+  img {
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+`;
 const Li = styled.li`
   font-weight: 600;
 `;
+
 const MainMenu = () => {
   return (
-    <nav className="flex w-full h-full items-center gap-7">
+    <Nav className="flex w-full h-full items-center gap-7">
       <img className=" h-full" src="image/monkey 1.png" alt="" />
       <ul className="flex gap-6">
         {ListMenu.map((item) => (
@@ -38,7 +46,7 @@ const MainMenu = () => {
           </Li>
         ))}
       </ul>
-    </nav>
+    </Nav>
   );
 };
 

@@ -17,6 +17,8 @@ const DashboardPage = React.lazy(() =>
   import("./Module/Dashboard/DashboardPage")
 );
 const PostManager = React.lazy(() => import("./Module/Post/PostManager"));
+const AddPost = React.lazy(() => import("./Module/Post/AddPost"));
+
 const Detail = React.lazy(() =>
   import("./Components/layout/DetailPage/Detail")
 );
@@ -49,6 +51,8 @@ const AnimatedRoutes = () => {
                 element={<DashboardPage />}
               ></Route>
               <Route path="/post" element={<PostManager />}></Route>
+              <Route path="/addpost" element={<AddPost />}></Route>
+
               <Route path="/user" element={<UserManager />}></Route>
 
               <Route path="/category" element={<CategoryManager />}></Route>

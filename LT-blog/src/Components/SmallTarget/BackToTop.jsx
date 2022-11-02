@@ -34,8 +34,8 @@ const Container = styled.div`
 
   display: ${(props) => (props.show ? "block" : "none")};
   svg {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 `;
 

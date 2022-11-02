@@ -28,8 +28,8 @@ const Content = styled.div`
   }
 `;
 const ContentSecond = styled.div`
-  width: 500px;
-  height: 500px;
+  width: 40%;
+  height: 40%;
   @media screen and (max-width: 768px) {
     display: none;
   }

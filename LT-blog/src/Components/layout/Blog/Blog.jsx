@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React from "react";
 import styled from "styled-components";
 import {
@@ -16,12 +17,12 @@ import { dbapi } from "./../../../config";
 import SkeletonCustom from "../../Skeleton/SkeletonCustom";
 import CardGlobal from "../Child/CardGlobal";
 import AnimatedPage from "../../../AnimatedPage";
+import Footer from "./../Footer/Footer";
 
 const OuterBlog = styled.div`
   position: relative;
   width: 100%;
   height: auto;
-  min-height: 100vh;
 `;
 const Nav = styled.nav`
   position: absolute;
@@ -29,7 +30,6 @@ const Nav = styled.nav`
   left: 0;
   height: auto;
   z-index: 9999999999;
-
   width: 100%;
 
   .menu {
@@ -56,11 +56,11 @@ const Nav = styled.nav`
     border-bottom-right-radius: 50%;
     background-color: rgb(18, 20, 45, 0.9);
     /* background-color: rgba(255, 0, 0, 0.1); */
-    min-height: 50vh;
+    min-height: 500px;
     transform: translate(0, -90%);
     transition: all 1s;
     @media screen and (max-width: 768px) {
-      min-height: 40vh;
+      min-height: 250px;
     }
     #direction {
       z-index: 10;
@@ -83,9 +83,9 @@ const Ul = styled.ul`
   position: absolute;
   height: 100%;
   width: 100%;
-  padding: 10vh 15% 0 15%;
+  padding: 5vh 15% 0 15%;
   @media screen and (max-width: 768px) {
-    padding: 5vh 2% 0 5%;
+    padding: 2vh 2% 0 5%;
   }
   /* background-color: black; */
   list-style: none;
@@ -116,10 +116,8 @@ const Li = styled.li`
   }
 `;
 
-const Blog = () => {
-  const dataLocal = localStorage.getItem("data");
-  const data = JSON.parse(dataLocal);
-  const [infor, setInfor] = React.useState(data);
+const Blog = ({ value }) => {
+  const [infor, setInfor] = React.useState([]);
   const breakpointColumnsObj = {
     default: 4,
     1280: 3,
@@ -127,7 +125,7 @@ const Blog = () => {
     500: 1,
   };
   const heights = [
-    150, 300, 190, 170, 110, 150, 130, 200, 250, 290, 190, 150, 230, 350, 180,
+    250, 300, 390, 270, 110, 350, 430, 310, 250, 290, 190, 150, 430, 350, 380,
   ];
   React.useEffect(() => {
     const Nav = document.getElementById("nav");
@@ -137,11 +135,6 @@ const Blog = () => {
     });
   }, []);
 
-  React.useEffect(() => {
-    if (data.length > 0) {
-      setInfor(data);
-    }
-  }, []);
   return (
     <AnimatedPage>
       <OuterBlog>
@@ -186,7 +179,7 @@ const Blog = () => {
             </div>
           </div>
         </Nav>
-        <div className="w-full h-auto min-h-[100vh] bg-black relative z-[5] p-5 ">
+        <div className="w-full h-auto  bg-black relative z-[5] p-5 ">
           <div className="h-[100px] w-full">
             <Back className="relative  w-auto pt-5 pl-5"></Back>
           </div>
@@ -214,8 +207,9 @@ const Blog = () => {
           </div>
         </div>
       </OuterBlog>
+      <Footer></Footer>
     </AnimatedPage>
   );
 };
 
-export default withFetchData(Blog, dbapi.getFeature);
+export default withFetchData(Blog);

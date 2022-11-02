@@ -1,11 +1,5 @@
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import {
-  createContext,
-  useContext,
-  useEffectLayout,
-  useLayoutEffect,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { string } from "yup";
 import { auth } from "../Firebase/Firebase-config";
 import { toast } from "react-toastify";
@@ -16,7 +10,7 @@ function AuthProvider(props) {
   const [userInfor, setUserInfor] = useState("");
   const [openError, setOpenError] = useState(false);
   const [message, setMessage] = useState([]);
-  useLayoutEffect(() => {
+  useEffect(() => {
     onAuthStateChanged(auth, (curentUser) => {
       if (curentUser) {
         setUserInfor(curentUser);
@@ -30,7 +24,7 @@ function AuthProvider(props) {
   const handleSignOut = () => {
     signOut(auth);
     setUserInfor("");
-    toast("Logout success", {
+    toast.success("Logout success", {
       position: "bottom-right",
       autoClose: 2000,
       hideProgressBar: false,

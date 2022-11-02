@@ -11,9 +11,13 @@ import Footer from "../Footer/Footer";
 const HomeContainer = styled.div`
   background: ${(props) => props.theme.bgPrimary};
   width: 100%;
-  min-height: 100vh;
-  @media screen and (max-width: 768px) {
-    min-height: 70vh;
+  min-height: 40vh;
+  width: 100%;
+  @media screen and (max-width: 567px) {
+    min-height: 30vh;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1480px) {
+    min-height: 40vh;
   }
   position: relative;
 `;
@@ -46,7 +50,7 @@ const ContentContainer = styled.div`
 
 const Home = () => {
   return (
-    <AnimatedPage>
+    <AnimatedPage className="w-full max-w-max ">
       <HomeContainer>
         <Header></Header>
         <BlockBanner></BlockBanner>

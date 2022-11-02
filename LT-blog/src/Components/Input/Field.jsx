@@ -29,8 +29,10 @@ const Field = ({
   type = "text",
   children,
   hasIcon = false,
-  control,
+  control = null,
   placeholder = "",
+  className,
+  onChange = {},
   ...props
 }) => {
   const [show, setShow] = useState(false);
@@ -44,10 +46,13 @@ const Field = ({
   });
   return (
     <FieldStyle hasIcon={hasIcon}>
+      {children}
       <input
+        className={className}
         id={name}
         type={show ? "text" : type}
         placeholder={placeholder}
+        onChange={onChange}
         {...field}
         {...props}
       />

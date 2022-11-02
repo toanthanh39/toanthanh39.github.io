@@ -9,8 +9,13 @@ import Card from "./../Child/Card";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Page404 from "./../Page404/Page404";
+import Footer from "../Footer/Footer";
+import BackdropCustom from "./../../Backdrop/BackdropCustom";
 
 const Container = styled.div`
+  position: relative;
+  height: 100%;
+  width: 100%;
   .introduce {
     display: flex;
     gap: 2rem;
@@ -21,7 +26,11 @@ const Container = styled.div`
     img {
       width: 100%;
       height: 100%;
-      min-width: 325px;
+
+      max-width: 50%;
+      @media screen and (max-width: 678px) {
+        max-width: 100%;
+      }
       @media screen and (min-width: 1080) {
         max-width: 50%;
       }
@@ -43,7 +52,7 @@ const Container = styled.div`
     left: 50%;
     transform: translateX(-50%);
     width: 55%;
-    height: auto;
+    height: 100%;
     text-align: left;
     padding: 1rem;
     @media screen and (max-width: 768px) {
@@ -67,15 +76,19 @@ const Container = styled.div`
 const Detail = () => {
   const { slug } = useParams();
   const [item, setItem] = useState("");
+  const [loading, setLoangding] = useState(false);
   console.log("🚀 ~ file: Detail.jsx ~ line 70 ~ Detail ~ item", item);
   React.useEffect(() => {
     const getItem = async () => {
+      setLoangding(true);
       try {
         const response = await axios.get(
           `http://localhost:3002/feature?id=${slug}`
         );
-
-        setItem(response.data);
+        if (response.data) {
+          setItem(response.data);
+          setLoangding(false);
+        }
       } catch (error) {
         console.log("🚀 ~ file: Detail.jsx ~ line 51 ~ getItem ~ error", error);
       }
@@ -85,13 +98,14 @@ const Detail = () => {
   if (item.length > 0) {
     var [{ cat, title, content, imageUrl, author }] = item;
   }
-  if (item.length <= 0) {
-    return <Page404></Page404>;
-  } else {
-    return (
-      <AnimatedPage className="w-full h-auto">
+
+  return (
+    <AnimatedPage className="w-full h-full relative">
+      {loading ? (
+        <BackdropCustom></BackdropCustom>
+      ) : (
         <>
-          <div className="flex justify-between p-7 items-center h-[100px]">
+          <div className="flex justify-between  p-7 items-center h-[100px]">
             <MainMenu></MainMenu>
             <Search></Search>
           </div>
@@ -113,14 +127,16 @@ const Detail = () => {
               <p>{content}</p>
               <img src={imageUrl} alt="" />
             </article>
+
+            <div className="w-full h-auto relative">
+              <Feature title="Bài viết liên quan"></Feature>
+            </div>
           </Container>
-          <div className="w-full h-[100px] ">
-            <Feature title="Bài viết liên quan"></Feature>
-          </div>
+          <Footer></Footer>
         </>
-      </AnimatedPage>
-    );
-  }
+      )}
+    </AnimatedPage>
+  );
 };
 
 export default Detail;

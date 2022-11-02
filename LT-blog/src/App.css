@@ -6,7 +6,7 @@
   display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
   margin-left: -30px; /* gutter size offset */
-  width: auto;
+  width: 100%;
 }
 .my-masonry-grid_column {
   padding-left: 30px;
@@ -22,4 +22,13 @@
 .my-masonry-grid_column a > div {
   padding: 0;
   margin-bottom: 30px;
+}
+main {
+  width: 100%;
+  /* max-width: 1980px; */
+  width: 100%;
+  max-width: 1580px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }

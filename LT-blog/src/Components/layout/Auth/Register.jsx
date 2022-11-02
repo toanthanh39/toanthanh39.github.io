@@ -99,7 +99,7 @@ const Register = ({ toggle }) => {
           toggle();
         }
       } catch (error) {
-        toast.error(JSON.stringify(error), {
+        toast.error(JSON.stringify("Tài khoản đã có người sử dụng"), {
           position: "top-left",
           autoClose: 3000,
           hideProgressBar: false,
