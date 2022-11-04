@@ -117,7 +117,8 @@ const Li = styled.li`
 `;
 
 const Blog = ({ value }) => {
-  const [infor, setInfor] = React.useState([]);
+  console.log("🚀 ~ file: Blog.jsx ~ line 120 ~ Blog ~ value", value);
+  const [infor, setInfor] = React.useState(value.data);
   const breakpointColumnsObj = {
     default: 4,
     1280: 3,
@@ -134,7 +135,11 @@ const Blog = ({ value }) => {
       Nav.classList.toggle("active");
     });
   }, []);
-
+  React.useEffect(() => {
+    if (value.data.length > 0) {
+      setInfor(value.data);
+    }
+  }, [value.data]);
   return (
     <AnimatedPage>
       <OuterBlog>
@@ -212,4 +217,4 @@ const Blog = ({ value }) => {
   );
 };
 
-export default withFetchData(Blog);
+export default withFetchData(Blog, dbapi.getFeature);

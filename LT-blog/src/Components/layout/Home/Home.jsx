@@ -4,7 +4,6 @@ import AnimatedPage from "../../../AnimatedPage";
 import Header from "../../Header/Header";
 import BlockBanner from "./BlockBanner";
 import "swiper/css";
-
 import NewWest from "../../Home_content/NewWest";
 import Feature from "../../Home_content/Feature";
 import Footer from "../Footer/Footer";

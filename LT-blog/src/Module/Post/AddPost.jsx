@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useState } from "react";
+import React, { useState, useId } from "react";
 import Field from "./../../Components/Input/Field";
 import { useForm } from "react-hook-form";
 import Checkbox from "../../Components/Checkbox/Checkbox";
@@ -10,7 +10,6 @@ import ButtonCustom from "../../Components/Button/ButtonCustom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import slugify from "slugify";
-import { collection, addDoc } from "firebase/firestore";
 import withFetchData from "./../../withFetchData";
 import { ErrorBoundary } from "react-error-boundary";
 const Container = styled.div`
@@ -43,7 +42,9 @@ const FieldLayout = styled.div`
   input {
     height: 50px !important;
     background-color: #c4c4c4;
+    width: 100%;
   }
+
   .error {
     color: red;
     font-weight: 500;
@@ -78,8 +79,10 @@ const schema = yup.object({
 });
 const AddPost = ({ value: { AddDoc } }) => {
   const [slugValue, setSlugValue] = useState("");
+
   const {
     control,
+    register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
     watch,
@@ -92,8 +95,9 @@ const AddPost = ({ value: { AddDoc } }) => {
   });
   const handleAddPost = (data) => {
     data.slug = slugify(data.slug || data.title, { trim: true, lower: true });
+    const NewdData = { ...data };
 
-    AddDoc(data);
+    AddDoc(NewdData);
 
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -181,6 +185,22 @@ const AddPost = ({ value: { AddDoc } }) => {
                   <p className="error">{errors.author.message}</p>
                 )}
               </FieldLayout>
+              <FieldLayout>
+                <h4>Image</h4>
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  style={{ display: "none" }}
+                />
+                <label
+                  htmlFor="file"
+                  className="w-full h-[50px] rounded-md pl-4 border border-slate-500 inline-block"
+                >
+                  Select file...
+                </label>
+              </FieldLayout>
+
               <FieldLayout>
                 <h4>Category *</h4>
                 <SelectCustom

@@ -2,6 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { MdDeleteForever, MdOpenInNew } from "react-icons/md";
 import { IoIosEye } from "react-icons/io";
+import withFetchData from "./AddPost";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db } from "./../../Firebase/Firebase-config";
+
 const Container = styled.div`
   width: 100%;
   height: auto;
@@ -150,6 +159,29 @@ const Container = styled.div`
 `;
 
 const PostManager = () => {
+  const colRef = collection(db, "blogs");
+
+  const [data, setData] = React.useState([]);
+  console.log(
+    "🚀 ~ file: PostManager.jsx ~ line 165 ~ PostManager ~ data",
+    data
+  );
+  const GetDocs = React.useRef(null);
+
+  GetDocs.current = async function () {
+    onSnapshot(colRef, (snapshot) => {
+      let NewData = [];
+      snapshot.forEach((item) => {
+        NewData.push({
+          ...item.data(),
+        });
+        setData(NewData);
+      });
+    });
+  };
+  React.useEffect(() => {
+    GetDocs.current();
+  }, [data]);
   return (
     <Container>
       <h1>Posts Manager</h1>
@@ -189,60 +221,35 @@ const PostManager = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>
-                  <div className="infor">
-                    <img src="/image/room1.png" alt="" />
-                    <div className="infor_title">
-                      <h4>Setup phong cho nguoi moizxccccccccccccccccccccc</h4>
-                      <p>23 October</p>
+              {data.map((item, index) => (
+                <tr key={index}>
+                  <td>{index}</td>
+                  <td>
+                    <div className="infor">
+                      <img src="/image/room1.png" alt="" />
+                      <div className="infor_title">
+                        <h4>{item.title}</h4>
+                        <p>23 October</p>
+                      </div>
                     </div>
-                  </div>
-                </td>
-                <td>kien thuc</td>
-                <td>Toan Thanh</td>
-                <td>
-                  <div className="flex gap-1">
-                    <span>
-                      <IoIosEye></IoIosEye>
-                    </span>
-                    <span>
-                      <MdOpenInNew></MdOpenInNew>
-                    </span>
-                    <span>
-                      <MdDeleteForever></MdDeleteForever>
-                    </span>
-                  </div>
-                </td>
-              </tr>
-              {/* <tr>
-                <td>1</td>
-                <td>
-                  <div className="infor">
-                    <img src="/image/room1.png" alt="" />
-                    <div className="infor_title">
-                      <h4>Setup phong cho nguoi moizxccccccccccccccccccccc</h4>
-                      <p>23 October</p>
+                  </td>
+                  <td>{item.type}</td>
+                  <td>{item.author}</td>
+                  <td>
+                    <div className="flex gap-1">
+                      <span>
+                        <IoIosEye></IoIosEye>
+                      </span>
+                      <span>
+                        <MdOpenInNew></MdOpenInNew>
+                      </span>
+                      <span>
+                        <MdDeleteForever></MdDeleteForever>
+                      </span>
                     </div>
-                  </div>
-                </td>
-                <td>kien thuc</td>
-                <td>Toan Thanh</td>
-                <td>
-                  <div className="flex gap-1">
-                    <span>
-                      <IoIosEye></IoIosEye>
-                    </span>
-                    <span>
-                      <MdOpenInNew></MdOpenInNew>
-                    </span>
-                    <span>
-                      <MdDeleteForever></MdDeleteForever>
-                    </span>
-                  </div>
-                </td>
-              </tr> */}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>

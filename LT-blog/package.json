@@ -39,6 +39,7 @@
     "use-local-storage": "^2.3.6",
     "use-react-router-breadcrumbs": "^4.0.1",
     "uuid": "^9.0.0",
+    "uuidv4": "^6.2.13",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },

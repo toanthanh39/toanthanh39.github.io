@@ -9,27 +9,27 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "./Firebase/Firebase-config";
-function withFetchData(Component) {
+function withFetchData(Component, api = "") {
   return (props) => {
     const colRef = collection(db, "blogs");
     const GetDocs = React.useRef(null);
     const [blog, setBlog] = React.useState([]);
-    console.log("🚀 ~ file: withFetchData.js ~ line 17 ~ return ~ blog", blog);
+    const [data, setData] = React.useState([]);
+    const GetData = React.useRef({});
 
-    // const GetData = React.useRef({});
-    // GetData.current = async () => {
-    //   try {
-    //     const response = await axios.get(api);
-    //     if (response.data) {
-    //       setData(response.data);
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-    // React.useEffect(() => {
-    //   GetData.current();
-    // }, []);
+    GetData.current = async () => {
+      try {
+        const response = await axios.get(api);
+        if (response.data) {
+          setData(response.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    React.useEffect(() => {
+      GetData.current();
+    }, []);
     GetDocs.current = async function () {
       onSnapshot(colRef, (snapshot) => {
         let NewData = [];
@@ -50,12 +50,12 @@ function withFetchData(Component) {
           ...data,
           createAt: serverTimestamp(),
         });
-        console.log("Add Blog success with ID :", docRef.id);
+        console.log("Add Blog success with ID :", docRef);
       } catch (e) {
         console.error("Error adding document: ", e);
       }
     }
-    const value = { AddDoc, blog };
+    const value = { AddDoc, blog, data };
     return <Component value={value} {...props}></Component>;
   };
 }
