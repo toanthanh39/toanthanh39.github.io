@@ -4,6 +4,8 @@ import ScollTop from "./Action/ScollTop";
 import { AnimatePresence } from "framer-motion";
 import { Route, Routes, useLocation } from "react-router-dom";
 // import UserManger from "./Module/Users/UserManger";
+import BackdropCustom from "./Components/Backdrop/BackdropCustom";
+
 const CategoryManager = React.lazy(() =>
   import("./Module/Category/CategoryManager")
 );
@@ -33,7 +35,7 @@ const Page404 = React.lazy(() => import("./Components/layout/Page404/Page404"));
 const AnimatedRoutes = () => {
   const location = useLocation();
   return (
-    <Suspense fallback={<div></div>}>
+    <Suspense fallback={<BackdropCustom></BackdropCustom>}>
       <ScollTop>
         <AnimatePresence exitBeforeEnter>
           <Routes location={location} key={location.pathname}>

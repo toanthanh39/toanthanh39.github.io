@@ -1,14 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import * as React from "react";
 
-export default function useClickOutSide() {
-  const [show, setShow] = useState(false);
-  const NodeRef = useRef(null);
-  useEffect(() => {
+export default function useClickShow() {
+  const [show, setShow] = React.useState(false);
+  const NodeRef = React.useRef(null);
+  React.useEffect(() => {
     function handleClickOut(e) {
       if (NodeRef.current && !NodeRef.current.contains(e.target)) {
         setShow(false);
-      } else {
-        setShow(true);
       }
     }
     if (NodeRef) {

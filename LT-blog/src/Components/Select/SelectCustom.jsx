@@ -15,7 +15,7 @@ const Container = styled.div`
     }
   }
 `;
-const SelectCustom = ({ name = "", opt = [], control, ...props }) => {
+const SelectCustom = ({ name = "", opt = [], control = null, ...props }) => {
   const { field } = useController({
     name: name,
     control,
@@ -23,10 +23,13 @@ const SelectCustom = ({ name = "", opt = [], control, ...props }) => {
   return (
     <Container>
       <select name={name} id={name} {...field} {...props}>
+        <option selected disabled>
+          Select category
+        </option>
         {opt.length > 0 &&
           opt.map((item, index) => (
-            <option key={index} value={item}>
-              {item}
+            <option key={index} value={item.name}>
+              {item.name}
             </option>
           ))}
       </select>

@@ -32,6 +32,9 @@ const Container = styled.div`
       height: 60px;
       border-radius: 100rem;
       background-color: #aaa;
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
       img {
         width: 100%;
         height: 100%;

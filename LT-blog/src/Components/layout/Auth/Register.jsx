@@ -7,8 +7,9 @@ import { AiFillCloseCircle } from "react-icons/ai";
 import Field from "../../Input/Field";
 import ButtonCustom from "../../Button/ButtonCustom";
 import { toast } from "react-toastify";
-import { auth } from "../../../Firebase/Firebase-config";
+import { auth, db } from "../../../Firebase/Firebase-config";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 const RegisterContainer = styled.div`
   position: absolute;
   top: 0;
@@ -83,8 +84,16 @@ const Register = ({ toggle }) => {
     resolver: yupResolver(schema),
     mode: "onSubmit",
   });
+  const AddUserData = async (data) => {
+    const colRef = collection(db, "users");
+    const userdata = await addDoc(colRef, {
+      name: data.userRegister,
+      email: data.emailRegister,
+      password: data.passwordRegister,
+    });
+    return userdata;
+  };
   const handleSignUp = async (data) => {
-    console.log(data);
     return new Promise(async (resolve) => {
       try {
         const user = await createUserWithEmailAndPassword(
@@ -93,10 +102,17 @@ const Register = ({ toggle }) => {
           data.passwordRegister
         );
         if (user) {
-          toast("Register succsess", {
-            pauseOnHover: false,
+          const colRef = collection(db, "users");
+          const userdata = await addDoc(colRef, {
+            name: data.userRegister,
+            email: data.emailRegister,
+            password: data.passwordRegister,
           });
-          toggle();
+          if (userdata) {
+            toast("Register succsess", {
+              pauseOnHover: false,
+            });
+          }
         }
       } catch (error) {
         toast.error(JSON.stringify("Tài khoản đã có người sử dụng"), {
@@ -120,6 +136,8 @@ const Register = ({ toggle }) => {
           passwordRegister: "",
           userRegister: "",
         });
+
+        toggle();
       }, 2000);
     });
   };
@@ -197,7 +215,14 @@ const Register = ({ toggle }) => {
               className="text-black"
             ></Field>
           </div>
-          <ButtonCustom type="submit">Sign Up</ButtonCustom>
+
+          <ButtonCustom type="submit">
+            {isSubmitting ? (
+              <div className="w-8 h-8 border border-white border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              "Sign Up"
+            )}
+          </ButtonCustom>
         </form>
       </OuterForm>
     </RegisterContainer>

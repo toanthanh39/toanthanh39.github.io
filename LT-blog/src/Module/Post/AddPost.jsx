@@ -1,9 +1,6 @@
-import styled from "@emotion/styled";
-import React, { useState, useId } from "react";
+import React from "react";
 import Field from "./../../Components/Input/Field";
 import { useForm } from "react-hook-form";
-import Checkbox from "../../Components/Checkbox/Checkbox";
-import CheckboxList from "./../../Components/Checkbox/CheckboxList";
 import Radio from "./../../Components/Input/Radio";
 import SelectCustom from "../../Components/Select/SelectCustom";
 import ButtonCustom from "../../Components/Button/ButtonCustom";
@@ -12,6 +9,15 @@ import * as yup from "yup";
 import slugify from "slugify";
 import withFetchData from "./../../withFetchData";
 import { ErrorBoundary } from "react-error-boundary";
+import UploadImage from "./../../Components/Input/UploadImage";
+import useFirebaseImage from "../../hook/useFirebaseImage";
+import Toggle from "../../Components/Button/Toggle";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../../Firebase/Firebase-config";
+import styled from "styled-components";
+import { toast } from "react-toastify";
+import { useAuth } from "../../Context/Auth-context";
+import DropdownCustom from "./../../Components/Select/DropdownCustom";
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -20,6 +26,8 @@ const Container = styled.div`
     width: 100%;
     margin-top: 2rem;
     &_layout {
+      width: 100%;
+      height: 100%;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 3rem;
@@ -35,12 +43,30 @@ const Container = styled.div`
   }
 `;
 const FieldLayout = styled.div`
+  height: 100%;
   h4 {
     margin-bottom: 1rem;
     margin-left: 1rem;
+    font-weight: 700;
+    color: ${(props) => props.theme.heading};
   }
-  input {
+  input[type="text"] {
     height: 50px !important;
+    :hover,
+    :focus,
+    :not(:placeholder-shown) {
+      border: 1px solid ${(props) => props.theme.special};
+      box-shadow: 0 0 5px #20e3b2;
+    }
+    &::-webkit-input-placeholder {
+      color: white;
+    }
+    ::-moz-input-placeholder {
+      color: white;
+    }
+  }
+
+  input {
     background-color: #c4c4c4;
     width: 100%;
   }
@@ -72,46 +98,94 @@ const schema = yup.object({
       ["approved", "pendding", "reject"],
       "please check status for this post"
     ),
-  type: yup
-    .string("")
-    .required("Please choose category for this post")
-    .oneOf(["blog", "study", "other"], "choose one of options"),
+  type: yup.string("").required("Please choose category for this post"),
 });
 const AddPost = ({ value: { AddDoc } }) => {
-  const [slugValue, setSlugValue] = useState("");
+  const [cat, setCat] = React.useState([]);
+  const { userInfor } = useAuth();
 
   const {
     control,
-    register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
+    setValue,
     watch,
     reset,
-    isSubmitSuccessful,
-    setFocus,
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onChange",
+    defaultValues: {
+      file: "",
+      type: "",
+    },
   });
-  const handleAddPost = (data) => {
+  const {
+    handleSelectImage,
+    handleUploadImage,
+    handleDeleteImage,
+    progress,
+    image,
+    urlImage,
+    setUrlImage,
+    setImage,
+  } = useFirebaseImage(setValue);
+  const handleAddPost = async (data) => {
     data.slug = slugify(data.slug || data.title, { trim: true, lower: true });
-    const NewdData = { ...data };
+    if (data.file !== null && data.file !== "") {
+      handleUploadImage(data.file);
+    }
+    const NewData = {
+      ...data,
+      file: JSON.stringify(image),
+      userId: userInfor.uid,
+    };
 
-    AddDoc(NewdData);
-
+    AddDoc(NewData);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve();
-        // reset({
-        //   title: "",
-        //   slug: "",
-        //   author: "",
-        //   type: "",
-        // });
-      }, 2000);
+        reset({
+          title: "",
+          slug: "",
+          author: "",
+          type: "",
+          file: "",
+          hot: false,
+        });
+        toast.success("ADD blog success", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setUrlImage("");
+        setImage("");
+      }, 3000);
     });
   };
+  const WatchHot = watch("hot");
+  const WatchCat = watch("type");
+  React.useEffect(() => {
+    const GetData = async () => {
+      const colRef = collection(db, "category");
+      const q = query(colRef, where("status", "==", 1));
+      const querysnapshot = await getDocs(q);
+      let categories = [];
 
+      querysnapshot.forEach((doc) => {
+        categories.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setCat(categories);
+    };
+    GetData();
+  }, []);
   return (
     <ErrorBoundary
       FallbackComponent={ErrorBoundary}
@@ -130,6 +204,7 @@ const AddPost = ({ value: { AddDoc } }) => {
                   name="title"
                   control={control}
                   className=" border border-none "
+                  placeholder="Enter Title"
                 ></Field>
                 {errors?.title && (
                   <p className="error">{errors.title.message}</p>
@@ -141,10 +216,10 @@ const AddPost = ({ value: { AddDoc } }) => {
                   name="slug"
                   control={control}
                   className=" border border-none "
+                  placeholder="Enter SLug"
                 ></Field>
                 {errors?.slug && <p className="error">{errors.slug.message}</p>}
               </FieldLayout>
-
               <FieldLayout>
                 <h4>Status *</h4>
                 <div className="body">
@@ -179,6 +254,7 @@ const AddPost = ({ value: { AddDoc } }) => {
                 <Field
                   name="author"
                   className=" border border-none  "
+                  placeholder="Enter Author"
                   control={control}
                 ></Field>
                 {errors?.author && (
@@ -187,28 +263,47 @@ const AddPost = ({ value: { AddDoc } }) => {
               </FieldLayout>
               <FieldLayout>
                 <h4>Image</h4>
-                <input
-                  type="file"
-                  name="file"
-                  id="file"
-                  style={{ display: "none" }}
-                />
-                <label
-                  htmlFor="file"
-                  className="w-full h-[50px] rounded-md pl-4 border border-slate-500 inline-block"
-                >
-                  Select file...
-                </label>
+                <UploadImage
+                  progress={progress}
+                  onSelect={handleSelectImage}
+                  onDelete={handleDeleteImage}
+                  url={urlImage}
+                  image={image}
+                ></UploadImage>
               </FieldLayout>
-
-              <FieldLayout>
+              {/* <FieldLayout>
                 <h4>Category *</h4>
                 <SelectCustom
-                  opt={["blog", "study", "other"]}
+                  opt={cat}
                   control={control}
                   name="type"
                 ></SelectCustom>
                 {errors?.type && <p className="error">{errors.type.message}</p>}
+              </FieldLayout> */}
+              <FieldLayout>
+                <h4>Category *</h4>
+                <DropdownCustom
+                  control={control}
+                  setValue={setValue}
+                  opt={cat}
+                  title="Select Category"
+                  name="type"
+                  errors={errors.type}
+                ></DropdownCustom>
+                {errors?.type && WatchCat === "" ? (
+                  <p className="error">{errors.type.message}</p>
+                ) : (
+                  ""
+                )}
+              </FieldLayout>
+              <FieldLayout>
+                <h4>Feature</h4>
+                <Toggle
+                  id="hot"
+                  name="hot"
+                  on={WatchHot === true}
+                  onClick={() => setValue("hot", !WatchHot)}
+                ></Toggle>
               </FieldLayout>
             </div>
             <div className="submit">

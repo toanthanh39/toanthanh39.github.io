@@ -7,9 +7,12 @@ import {
   addDoc,
   collection,
   onSnapshot,
+  orderBy,
+  query,
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "./../../Firebase/Firebase-config";
+import { DeleteBlog } from "../../Firebase/FireBaseFunc";
 
 const Container = styled.div`
   width: 100%;
@@ -24,8 +27,12 @@ const Container = styled.div`
     margin-top: 2rem;
     &-search {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
+      gap: 4px;
+      @media screen and (max-width: 768px) {
+        gap: 2rem;
+      }
       input {
         @media screen and (max-width: 820px) {
           width: 100%;
@@ -160,96 +167,84 @@ const Container = styled.div`
 
 const PostManager = () => {
   const colRef = collection(db, "blogs");
-
   const [data, setData] = React.useState([]);
-  console.log(
-    "🚀 ~ file: PostManager.jsx ~ line 165 ~ PostManager ~ data",
-    data
-  );
-  const GetDocs = React.useRef(null);
+  const [sort, setSort] = React.useState("desc");
 
+  const GetDocs = React.useRef(null);
   GetDocs.current = async function () {
-    onSnapshot(colRef, (snapshot) => {
+    const q = query(colRef, orderBy("createAt", sort));
+    onSnapshot(q, (snapshot) => {
       let NewData = [];
-      snapshot.forEach((item) => {
+      snapshot.docs.forEach((item) => {
         NewData.push({
+          id: item.id,
           ...item.data(),
         });
-        setData(NewData);
       });
+      setData(NewData);
     });
   };
   React.useEffect(() => {
     GetDocs.current();
-  }, [data]);
+  }, [colRef, sort]);
+  const handleChangeSort = (e) => {
+    setSort(e.target.value);
+  };
   return (
     <Container>
       <h1>Posts Manager</h1>
       <div className="post_body">
         <div className="post_body-search">
+          <select name="sort" id="sort" onChange={handleChangeSort}>
+            <option value="desc"> Desc createAt</option>
+            <option value="asc"> Asc createAt</option>
+          </select>
           <input type="text" placeholder="Search post..." />
         </div>
-        {/* <div className="post_body-list">
-          <div className="post">
-            <img src="/image/room1.png" alt="" />
-            <div className="infor">
-              <h3>ID : 1</h3>
-              <h5>Lorem ipsum dolor sit amet consectetur, adipisic.</h5>
-              <div className="action ">
-                <span>
-                  <IoIosEye></IoIosEye>
-                </span>
-                <span>
-                  <MdOpenInNew></MdOpenInNew>
-                </span>
-                <span>
-                  <MdDeleteForever></MdDeleteForever>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div> */}
         <div className="w-full mt-10 table">
           <table>
             <thead>
               <tr>
                 <td className="w-10">ID</td>
                 <td>Title</td>
+                <td>Slug</td>
                 <td>Category</td>
                 <td>Author</td>
                 <td>Action</td>
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
-                  <td>{index}</td>
-                  <td>
-                    <div className="infor">
-                      <img src="/image/room1.png" alt="" />
-                      <div className="infor_title">
-                        <h4>{item.title}</h4>
-                        <p>23 October</p>
+              {data.length > 0 &&
+                data.map((item, index) => (
+                  <tr key={index}>
+                    <td>{index}</td>
+                    <td>
+                      <div className="infor">
+                        <img src="/image/room1.png" alt="" />
+                        <div className="infor_title">
+                          <h4>{item.title}</h4>
+                          <p>23 October</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>{item.type}</td>
-                  <td>{item.author}</td>
-                  <td>
-                    <div className="flex gap-1">
-                      <span>
-                        <IoIosEye></IoIosEye>
-                      </span>
-                      <span>
-                        <MdOpenInNew></MdOpenInNew>
-                      </span>
-                      <span>
-                        <MdDeleteForever></MdDeleteForever>
-                      </span>
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                    <td>{item.slug}</td>
+                    <td>{item.type}</td>
+                    <td>{item.author}</td>
+                    <td>
+                      <div className="flex gap-1">
+                        <span>
+                          <IoIosEye></IoIosEye>
+                        </span>
+                        <span>
+                          <MdOpenInNew></MdOpenInNew>
+                        </span>
+                        <span onClick={() => DeleteBlog(item.id)}>
+                          <MdDeleteForever></MdDeleteForever>
+                        </span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

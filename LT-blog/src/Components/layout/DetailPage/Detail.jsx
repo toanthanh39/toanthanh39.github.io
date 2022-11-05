@@ -98,7 +98,7 @@ const Detail = () => {
   if (item.length > 0) {
     var [{ cat, title, content, imageUrl, author }] = item;
   }
-
+  if (item.length === 0) return <Page404></Page404>;
   return (
     <AnimatedPage className="w-full h-full relative">
       {loading ? (
