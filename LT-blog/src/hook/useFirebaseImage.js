@@ -8,7 +8,8 @@ import { useState } from "react";
 
 export default function useFirebaseImage(setValue = () => {}) {
   const [progress, setProgress] = useState(0);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState("A");
+
   const [urlImage, setUrlImage] = useState("");
   const handleUploadImage = (file) => {
     const storage = getStorage();
@@ -22,7 +23,6 @@ export default function useFirebaseImage(setValue = () => {}) {
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progressCurrent + "% done");
         setProgress(progressCurrent);
-
         switch (snapshot.state) {
           case "paused":
             console.log("Upload is paused");
@@ -51,7 +51,6 @@ export default function useFirebaseImage(setValue = () => {}) {
     const file = e.target.files[0];
     if (!file) return;
     setValue("file", file);
-
     const url = URL.createObjectURL(e.target.files[0]);
     setUrlImage(url);
   };

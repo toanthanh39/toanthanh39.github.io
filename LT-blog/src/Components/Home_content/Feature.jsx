@@ -6,6 +6,7 @@ import Card from "./../layout/Child/Card";
 import withFetchData from "./../../withFetchData";
 import { dbapi } from "../../config";
 import axios from "axios";
+
 const Container = styled.section`
   header {
     font-family: "Montserrat";
@@ -47,24 +48,28 @@ const OuterSwiper = styled.div`
     }
   }
 `;
-const Feature = ({ title = "", ...props }) => {
+const Feature = ({ title = "", value, ...props }) => {
   const arr = Array.from(new Array(10));
-  const [api, setApi] = React.useState(dbapi.getFeature);
-  const [data, setData] = React.useState(arr);
+  const [data, setData] = React.useState([]);
+  // const [api, setApi] = React.useState(dbapi.getFeature);
+  // const GetData = React.useRef({});
+  // GetData.current = async () => {
+  //   try {
+  //     const response = await axios.get(api);
 
-  const GetData = React.useRef({});
-  GetData.current = async () => {
-    try {
-      const response = await axios.get(api);
-
-      setData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     setData(response.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // React.useEffect(() => {
+  //   GetData.current();
+  // }, []);
   React.useEffect(() => {
-    GetData.current();
-  }, []);
+    if (value.blog.length > 0) {
+      setData(value.blog);
+    }
+  }, [value.blog]);
   return (
     <Container>
       <header>{title}</header>
@@ -112,4 +117,4 @@ const Feature = ({ title = "", ...props }) => {
     </Container>
   );
 };
-export default Feature;
+export default withFetchData(Feature);

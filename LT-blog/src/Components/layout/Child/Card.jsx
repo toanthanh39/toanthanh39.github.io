@@ -68,10 +68,14 @@ const ContentSecond = styled.div`
   }
 `;
 const Card = ({ feature = {}, height = 222, width = 320 }) => {
-  const { title, imageUrl, cat, id, author } = feature;
+  const { title, image: imageUrl, type: cat, id, author } = feature;
+  React.useEffect(() => {}, [feature]);
   return (
     <Link to={`/${id}`}>
-      <CardOuter url={imageUrl} height={height}>
+      <CardOuter
+        url={imageUrl === "A" ? "/image/room1.png" : imageUrl}
+        height={height}
+      >
         <OuterContent>
           <ContentFirst>
             <span className="rounded-lg bg-white p-1 ">{cat}</span>

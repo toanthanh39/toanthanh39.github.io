@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const BarContainer = styled.div`
-  color: #000000;
+  color: white;
   font-size: 18pt;
   display: none;
   @media screen and (max-width: 1024px) {

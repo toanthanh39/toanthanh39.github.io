@@ -8,10 +8,26 @@ import NewWest from "../../Home_content/NewWest";
 import Feature from "../../Home_content/Feature";
 import Footer from "../Footer/Footer";
 const HomeContainer = styled.div`
-  background: ${(props) => props.theme.bgPrimary};
+  position: relative;
+  z-index: 1;
+  background-image: url("/image/background.jpg");
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  /* background-position: center; */
   width: 100%;
   min-height: 40vh;
   width: 100%;
+  ::after {
+    z-index: 2;
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
   @media screen and (max-width: 567px) {
     min-height: 30vh;
   }
@@ -22,6 +38,9 @@ const HomeContainer = styled.div`
 `;
 const ContentContainer = styled.div`
   position: relative;
+  background-color: red;
+  height: 100%;
+  width: 100%;
   header {
     font-family: "Montserrat";
     font-style: normal;
@@ -49,10 +68,12 @@ const ContentContainer = styled.div`
 
 const Home = () => {
   return (
-    <AnimatedPage className="w-full max-w-max ">
+    <AnimatedPage>
+      <Header></Header>
       <HomeContainer>
-        <Header></Header>
-        <BlockBanner></BlockBanner>
+        <div className="relative z-[3] ">
+          <BlockBanner></BlockBanner>
+        </div>
       </HomeContainer>
       <ContentContainer>
         <Feature title="Feature"></Feature>

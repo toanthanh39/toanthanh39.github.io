@@ -13,6 +13,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background-color: white;
   /* @media screen and (min-width: 1280px) {
     min-width: 100vw;
   } */

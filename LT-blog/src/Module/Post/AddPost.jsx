@@ -12,12 +12,20 @@ import { ErrorBoundary } from "react-error-boundary";
 import UploadImage from "./../../Components/Input/UploadImage";
 import useFirebaseImage from "../../hook/useFirebaseImage";
 import Toggle from "../../Components/Button/Toggle";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 import { db } from "../../Firebase/Firebase-config";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 import { useAuth } from "../../Context/Auth-context";
 import DropdownCustom from "./../../Components/Select/DropdownCustom";
+import { addDocs } from "../../Firebase/FireBaseFunc";
 const Container = styled.div`
   width: 100%;
   height: 100%;
@@ -100,19 +108,20 @@ const schema = yup.object({
     ),
   type: yup.string("").required("Please choose category for this post"),
 });
-const AddPost = ({ value: { AddDoc } }) => {
+const AddPost = () => {
+  const colRef = collection(db, "blogs");
   const [cat, setCat] = React.useState([]);
   const { userInfor } = useAuth();
-
+  const [loading, setLoading] = React.useState(false);
   const {
     control,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors },
     setValue,
     watch,
     reset,
   } = useForm({
-    resolver: yupResolver(schema),
+    // resolver: yupResolver(schema),
     mode: "onChange",
     defaultValues: {
       file: "",
@@ -127,45 +136,47 @@ const AddPost = ({ value: { AddDoc } }) => {
     image,
     urlImage,
     setUrlImage,
-    setImage,
   } = useFirebaseImage(setValue);
   const handleAddPost = async (data) => {
-    data.slug = slugify(data.slug || data.title, { trim: true, lower: true });
-    if (data.file !== null && data.file !== "") {
-      handleUploadImage(data.file);
-    }
-    const NewData = {
-      ...data,
-      file: JSON.stringify(image),
-      userId: userInfor.uid,
-    };
+    setLoading(true);
+    try {
+      data.slug = slugify(data.slug || data.title, { trim: true, lower: true });
+      if (data.file !== "") {
+        handleUploadImage(data.file);
+      }
+      const Newdata = {
+        ...data,
+        file: "",
+        image: image,
+      };
+      addDocs(Newdata);
 
-    AddDoc(NewData);
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-        reset({
-          title: "",
-          slug: "",
-          author: "",
-          type: "",
-          file: "",
-          hot: false,
-        });
-        toast.success("ADD blog success", {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-        setUrlImage("");
-        setImage("");
-      }, 3000);
-    });
+      // if () {
+      //   console.log("add blog success");
+      //   reset({
+      //     title: "",
+      //     slug: "",
+      //     author: "",
+      //     type: "",
+      //     file: "",
+      //     hot: false,
+      //   });
+      //   toast.success("ADD blog success", {
+      //     position: "bottom-right",
+      //     autoClose: 3000,
+      //     hideProgressBar: false,
+      //     closeOnClick: true,
+      //     pauseOnHover: false,
+      //     draggable: true,
+      //     progress: undefined,
+      //     theme: "light",
+      //   });
+      // }
+    } catch (error) {
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
   const WatchHot = watch("hot");
   const WatchCat = watch("type");
@@ -307,7 +318,7 @@ const AddPost = ({ value: { AddDoc } }) => {
               </FieldLayout>
             </div>
             <div className="submit">
-              {isSubmitting ? (
+              {loading ? (
                 <div className="w-10 h-10 rounded-full border border-blue-600 border-t-transparent animate-spin   "></div>
               ) : (
                 <ButtonCustom type="submit">Submit</ButtonCustom>
@@ -320,4 +331,4 @@ const AddPost = ({ value: { AddDoc } }) => {
   );
 };
 
-export default withFetchData(AddPost);
+export default AddPost;

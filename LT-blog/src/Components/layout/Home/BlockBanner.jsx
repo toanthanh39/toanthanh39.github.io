@@ -10,12 +10,11 @@ const Section = styled.div`
   justify-content: center;
   align-items: center;
   @media screen and (min-width: 1366px) {
-    margin-top: 50px;
+    /* margin-top: 50px; */
   }
   @media screen and (max-width: 768px) {
     padding: 0 20px;
     justify-content: flex-start;
-    margin-top: 50px;
   }
 `;
 

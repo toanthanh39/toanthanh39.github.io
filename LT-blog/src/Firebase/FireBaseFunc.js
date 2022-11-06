@@ -3,10 +3,17 @@ import {
   updateProfile,
   signOut,
 } from "firebase/auth";
-import { deleteDoc, doc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { useAuth } from "../Context/Auth-context";
 import { auth, db } from "./Firebase-config";
 import { toast } from "react-toastify";
+const colRef = collection(db, "blogs");
 
 async function SignIn({ user, email, password }) {
   try {
@@ -40,4 +47,17 @@ async function DeleteBlog(id) {
     theme: "light",
   });
 }
-export { SignIn, LogOut, DeleteBlog };
+async function addDocs(data) {
+  try {
+    const blogRef = await addDoc(colRef, {
+      ...data,
+      createAt: serverTimestamp(),
+    });
+    if (blogRef) {
+      return blogRef;
+    }
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+export { SignIn, LogOut, DeleteBlog, addDocs };

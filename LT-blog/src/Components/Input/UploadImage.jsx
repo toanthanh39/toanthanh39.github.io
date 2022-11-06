@@ -50,7 +50,7 @@ const UploadImage = ({
     >
       <input
         type="file"
-        name="name"
+        name="file"
         id="id"
         className="hidden"
         onChange={onSelect}
@@ -64,7 +64,7 @@ const UploadImage = ({
           ) : (
             <FcAddImage></FcAddImage>
           )}
-          {image ? (
+          {url ? (
             <div
               className="absolute w-0 h-1 bg-green-400  bottom-0 left-0 transition-all image-upload-progress"
               style={{ width: `${Math.ceil(progress)}%` }}
