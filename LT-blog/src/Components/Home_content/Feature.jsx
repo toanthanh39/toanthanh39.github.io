@@ -4,9 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper";
 import Card from "./../layout/Child/Card";
 import withFetchData from "./../../withFetchData";
-import { dbapi } from "../../config";
-import axios from "axios";
-
+import SkeletonCustom from "./../Skeleton/SkeletonCustom";
 const Container = styled.section`
   header {
     font-family: "Montserrat";
@@ -106,12 +104,17 @@ const Feature = ({ title = "", value, ...props }) => {
             },
           }}
         >
-          {data.length > 0 &&
-            data.map((item, index) => (
-              <SwiperSlide key={index}>
-                <Card feature={item}></Card>
-              </SwiperSlide>
-            ))}
+          {data.length > 0
+            ? data.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <Card feature={item}></Card>
+                </SwiperSlide>
+              ))
+            : arr.map((item, index) => (
+                <SwiperSlide key={index}>
+                  <SkeletonCustom></SkeletonCustom>
+                </SwiperSlide>
+              ))}
         </Swiper>
       </OuterSwiper>
     </Container>

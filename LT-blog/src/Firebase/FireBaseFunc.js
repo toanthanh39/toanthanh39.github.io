@@ -35,7 +35,6 @@ function LogOut() {
 async function DeleteBlog(id) {
   const colRefdelete = doc(db, "blogs", id);
   await deleteDoc(colRefdelete);
-  console.log("delete succes");
   toast.success("Delete blog success", {
     position: "bottom-right",
     autoClose: 3000,

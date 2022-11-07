@@ -6,7 +6,7 @@ const CardOuter = styled.div`
   position: relative;
   z-index: 1;
   cursor: pointer;
-  width: ${(props) => props.width + "px"};
+  width: ${(props) => props.width && props.width};
   height: ${(props) => props.height && props.height + "px"};
   background: linear-gradient(270deg, #6e33f1 0%, #e833cb 100%);
   ${(props) =>
@@ -18,6 +18,7 @@ const CardOuter = styled.div`
   border-radius: 10px;
   background-size: 100% auto !important;
   background-repeat: no-repeat !important;
+  background-position: center;
   position: relative;
   padding: 1rem;
   font-family: "Montserrat";
@@ -26,7 +27,7 @@ const CardOuter = styled.div`
   transition: all 0.5s linear !important;
   :hover {
     @media screen and (min-width: 1080px) {
-      background-size: 130% auto !important;
+      background-size: 110% auto !important;
     }
   }
   ::after {
@@ -36,7 +37,7 @@ const CardOuter = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 2;
   }
   @media screen and (max-width: 768px) {
@@ -67,7 +68,7 @@ const ContentSecond = styled.div`
     font-weight: 700;
   }
 `;
-const Card = ({ feature = {}, height = 222, width = 320 }) => {
+const Card = ({ feature = {}, height = 222, width = "auto" }) => {
   const { title, image: imageUrl, type: cat, id, author } = feature;
   React.useEffect(() => {}, [feature]);
   return (
@@ -75,6 +76,7 @@ const Card = ({ feature = {}, height = 222, width = 320 }) => {
       <CardOuter
         url={imageUrl === "A" ? "/image/room1.png" : imageUrl}
         height={height}
+        width={width}
       >
         <OuterContent>
           <ContentFirst>

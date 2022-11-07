@@ -137,41 +137,50 @@ const AddPost = () => {
     urlImage,
     setUrlImage,
   } = useFirebaseImage(setValue);
+  console.log("🚀 ~ file: AddPost.jsx ~ line 140 ~ AddPost ~ image", image);
   const handleAddPost = async (data) => {
     setLoading(true);
     try {
       data.slug = slugify(data.slug || data.title, { trim: true, lower: true });
       if (data.file !== "") {
-        handleUploadImage(data.file);
-      }
-      const Newdata = {
-        ...data,
-        file: "",
-        image: image,
-      };
-      addDocs(Newdata);
+        const promise = new Promise((reslove, reject) => {
+          handleUploadImage(data.file);
+          reslove();
+          reject();
+        });
+        promise.then(() => {
+          const Newdata = {
+            ...data,
+            file: "",
+            image: image,
+          };
+          addDocs(Newdata);
+        });
 
-      // if () {
-      //   console.log("add blog success");
-      //   reset({
-      //     title: "",
-      //     slug: "",
-      //     author: "",
-      //     type: "",
-      //     file: "",
-      //     hot: false,
-      //   });
-      //   toast.success("ADD blog success", {
-      //     position: "bottom-right",
-      //     autoClose: 3000,
-      //     hideProgressBar: false,
-      //     closeOnClick: true,
-      //     pauseOnHover: false,
-      //     draggable: true,
-      //     progress: undefined,
-      //     theme: "light",
-      //   });
-      // }
+        promise.catch(() => {
+          console.log("error");
+        });
+        promise.finally(() => {
+          reset({
+            title: "",
+            slug: "",
+            author: "",
+            type: "",
+            file: "",
+            hot: false,
+          });
+          toast.success("ADD blog success", {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        });
+      }
     } catch (error) {
       setLoading(false);
     } finally {
