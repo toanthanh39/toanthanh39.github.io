@@ -118,7 +118,7 @@ const Li = styled.li`
 
 const Blog = ({ value }) => {
   console.log("🚀 ~ file: Blog.jsx ~ line 120 ~ Blog ~ value", value);
-  const [infor, setInfor] = React.useState(value.data);
+  const [infor, setInfor] = React.useState(value.blog||[]);
   const breakpointColumnsObj = {
     default: 4,
     1280: 3,
@@ -136,7 +136,7 @@ const Blog = ({ value }) => {
     });
   }, []);
   React.useEffect(() => {
-    if (value.data.length > 0) {
+    if (value.blog?.length > 0) {
       setInfor(value.data);
     }
   }, [value.data]);
@@ -194,7 +194,7 @@ const Blog = ({ value }) => {
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column"
             >
-              {infor.length > 0
+              {infor?.length > 0
                 ? infor.map((item, index) => (
                     <CardGlobal
                       key={index}
