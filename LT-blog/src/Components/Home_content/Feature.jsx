@@ -34,6 +34,7 @@ const OuterSwiper = styled.div`
   width: 100%;
   height: auto;
   border-radius: 8px;
+
   .swiper {
     padding: 0 30px 40px 10px;
     overflow-x: hidden;
